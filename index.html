@@ -3,51 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>USDT (BEP20) Receive Page</title>
+  <title>USDT (BEP20) — Receive Page</title>
   <style>
-    :root{--bg:#0f172a;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8}
+    :root{
+      --bg1: #ff9a9e;
+      --bg2: #fad0c4;
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.08);
+      --accent: #06b6d4;
+      --accent2: #7c3aed;
+      --muted: rgba(255,255,255,0.8);
+      --glass-border: rgba(255,255,255,0.12);
+    }
     *{box-sizing:border-box}
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;margin:0;background:linear-gradient(180deg,#071029 0%, #071827 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;width:100%;max-width:720px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    h1{margin:0 0 8px;font-size:20px}
-    p.lead{margin:0 0 18px;color:var(--muted)}
-    .row{display:flex;gap:12px;align-items:center}
-    .address-box{background:#081025;padding:14px;border-radius:8px;flex:1;word-break:break-all;border:1px solid rgba(255,255,255,0.03)}
-    .small{font-size:12px;color:var(--muted)}
-    button{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;color:#042026;font-weight:600;cursor:pointer}
-    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    body{
+      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#072227;background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    }
+    .card{
+      width:100%;max-width:860px;background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));backdrop-filter: blur(8px);border-radius:16px;padding:22px;border:1px solid var(--glass-border);box-shadow:0 12px 40px rgba(12,20,40,0.2);
+    }
+    header{display:flex;align-items:center;gap:14px}
+    h1{margin:0;font-size:20px;color:#031617}
+    p.lead{margin:4px 0 14px;color:#042c2c;opacity:0.95}
+
+    .row{display:flex;gap:18px;align-items:flex-start}
+    .left{flex:1}
+    .address-box{background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));padding:14px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-weight:700;color:#022;word-break:break-all}
+    .small{font-size:13px;color:#063535}
     .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .qr{width:160px;height:160px;border-radius:8px;background:#071226;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
-    textarea{width:100%;min-height:110px;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:#041022;color:inherit;resize:vertical}
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:var(--muted);font-size:13px}
-    .preview{margin-top:12px;padding:12px;border-radius:8px;background:#061225;border:1px solid rgba(255,255,255,0.02)}
-    .foot{margin-top:14px;font-size:12px;color:var(--muted)}
-    a.link{color:var(--accent);text-decoration:none}
-    @media(max-width:560px){.row{flex-direction:column}.qr{width:140px;height:140px}}
+    button{cursor:pointer;padding:10px 12px;border-radius:10px;border:none;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:#042c2c}
+
+    .qr{width:170px;height:170px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));}
+    textarea{width:100%;min-height:120px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.02);resize:vertical;color:#021}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:#063535;font-size:13px}
+    .preview{margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border:1px dashed rgba(0,0,0,0.04)}
+
+    .foot{margin-top:14px;font-size:13px;color:#063535}
+
+    @media(max-width:720px){.row{flex-direction:column}.qr{width:140px;height:140px}}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>USDT (BEP20) Receive</h1>
-    <p class="lead">Niche message likhne ka option — address ko copy karo ya QR scan karo.</p>
+    <header>
+      <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#fff,rgba(255,255,255,0.6));display:flex;align-items:center;justify-content:center;font-weight:800;color:#053;">$</div>
+      <div>
+        <h1>USDT (BEP20) — Receive</h1>
+        <p class="lead">Share this address for BEP20 (BSC) USDT payments. Buyers can scan QR or copy the address. Add an optional message below for the payer.</p>
+      </div>
+    </header>
 
-    <div class="row" style="align-items:flex-start">
-      <div style="flex:1">
+    <div class="row" style="margin-top:14px">
+      <div class="left">
         <div class="small">Address (USDT BEP20)</div>
         <div class="address-box" id="addressBox">0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75</div>
 
         <div class="controls">
-          <button id="copyBtn">Copy Address</button>
-          <button id="explorerBtn" class="ghost">Open on BscScan</button>
-          <button id="saveAddressBtn" class="ghost">Download address.txt</button>
+          <button id="copyBtn" class="btn-primary">Copy Address</button>
+          <button id="explorerBtn" class="btn-ghost">Open on BscScan</button>
+          <button id="saveAddressBtn" class="btn-ghost">Download address.txt</button>
         </div>
 
-        <div style="margin-top:14px">
-          <label class="small" for="message">Message (niche jo show hoga):</label>
-          <textarea id="message" placeholder="Yahan apna message likho — payer ko yeh message dikhega..."></textarea>
+        <div style="margin-top:16px">
+          <label class="small" for="message">Message (will be shown below):</label>
+          <textarea id="message" placeholder="Write a short message for the payer, e.g. 'For Order #123 — thanks!'..."></textarea>
           <div class="meta">
             <div id="chars">0 characters</div>
-            <div><button id="saveMsgBtn" class="ghost">Download message</button></div>
+            <div><button id="saveMsgBtn" class="btn-ghost">Download message</button></div>
           </div>
         </div>
 
@@ -58,16 +82,16 @@
 
       </div>
 
-      <div style="width:180px;text-align:center">
+      <div style="width:200px;text-align:center">
         <div class="small">Scan QR to copy address</div>
         <div class="qr" id="qrContainer">
-          <img id="qrImg" alt="QR code" style="max-width:100%;border-radius:6px" />
+          <img id="qrImg" alt="QR code" style="max-width:90%;border-radius:8px" />
         </div>
-        <div style="margin-top:12px;font-size:13px;color:var(--muted)">Quick actions</div>
+        <div style="margin-top:12px;font-size:13px;color:#063535">Quick actions</div>
       </div>
     </div>
 
-    <div class="foot">Made with ❤️ — Simple static page. To deploy: upload this single file as <code>index.html</code> to Vercel / Netlify / GitHub Pages.</div>
+    <div class="foot">Tip: Save this file as <code>index.html</code> and upload to Vercel / Netlify / GitHub Pages to deploy. Want a different color theme or dark mode? Tell me which colors you like.</div>
   </div>
 
   <script>
@@ -83,11 +107,11 @@
     const saveMsgBtn = document.getElementById('saveMsgBtn');
     const saveAddressBtn = document.getElementById('saveAddressBtn');
 
-    // set initial values
     addressBox.textContent = address;
 
     function updateQR(){
-      const qrUrl = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(address) + '&choe=UTF-8';
+      const payload = 'ethereum:' + address; // many wallets understand this
+      const qrUrl = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
       qrImg.src = qrUrl;
     }
     updateQR();
@@ -98,7 +122,7 @@
         copyBtn.textContent = 'Copied!';
         setTimeout(()=>copyBtn.textContent = 'Copy Address',1200);
       }catch(e){
-        alert('Copy failed — manually select and copy.');
+        alert('Copy failed — please select and copy manually.');
       }
     });
 
@@ -139,7 +163,6 @@
       downloadFile('address.txt', address);
     });
 
-    // allow pressing Ctrl+Enter in textarea to show preview (optional)
     messageEl.addEventListener('keydown', (e)=>{
       if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
         e.preventDefault();
