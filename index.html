@@ -3,65 +3,98 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>USDT (BEP20) — Professional Receive Page</title>
+  <title>USDT (BEP20) — Neon Multi‑Color Receive</title>
   <style>
     :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --accent:#00c2a8; /* teal */
-      --accent-2:#ffd166; /* warm gold */
-      --muted:#98a0aa;
-      --glass: rgba(255,255,255,0.03);
+      --bg:#05060a;
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.65);
+      --glass: rgba(255,255,255,0.04);
+      --accent1: #6ee7b7; /* mint */
+      --accent2: #60a5fa; /* blue */
+      --accent3: #f472b6; /* pink */
+      --accent4: #fbbf24; /* amber */
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;min-height:100vh;background:linear-gradient(180deg,#081426 0%, #071229 100%);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial;color:#eaf6f2;display:flex;align-items:center;justify-content:center;padding:28px
+      margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(99,102,241,0.08), transparent),
+                        radial-gradient(1000px 500px at 90% 80%, rgba(236,72,153,0.06), transparent),
+                        var(--bg);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial;color:#e9fbf6;display:flex;align-items:center;justify-content:center;padding:36px
     }
-    .wrap{width:100%;max-width:980px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:28px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 18px 50px rgba(3,12,29,0.6)}
 
-    .top{display:flex;align-items:center;gap:18px}
-    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#072;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
-    h1{margin:0;font-size:26px;letter-spacing:0.2px}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+    /* moving colorful light blobs */
+    .lights{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.7;mix-blend-mode:screen}
+    .b1{width:520px;height:520px;left:-120px;top:-80px;background:linear-gradient(45deg,var(--accent1),var(--accent2));animation:move1 14s linear infinite}
+    .b2{width:420px;height:420px;right:-100px;bottom:-60px;background:linear-gradient(45deg,var(--accent3),var(--accent4));animation:move2 16s linear infinite}
+    @keyframes move1{0%{transform:translate(0,0)}50%{transform:translate(40px,30px)}100%{transform:translate(0,0)}}
+    @keyframes move2{0%{transform:translate(0,0)}50%{transform:translate(-30px,-25px)}100%{transform:translate(0,0)}}
 
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:20px}
+    .wrap{width:100%;max-width:1100px;position:relative;z-index:1}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:28px;border:1px solid var(--glass);box-shadow:0 24px 70px rgba(2,6,23,0.6);overflow:hidden}
 
-    .section{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:18px;border-radius:12px;border:1px solid var(--glass)}
+    .nav{display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),var(--accent3));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021;box-shadow:0 10px 30px rgba(99,102,241,0.12)}
+    h1{margin:0;font-size:22px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
 
-    .address-box{padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:700;color:#dff7f0;word-break:break-all;border:1px solid rgba(255,255,255,0.02)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:20px}
+
+    .section{padding:18px;border-radius:12px}
+
+    .address-box{padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:700;color:#dff7f0;word-break:break-all;border:1px solid rgba(255,255,255,0.02);font-size:15px}
 
     .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#38bdf8);color:#012;box-shadow:0 8px 20px rgba(0,194,168,0.14)}
-    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;transition:transform .15s ease, box-shadow .15s}
+    .btn:active{transform:translateY(2px)}
+
+    .neon{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#021;box-shadow:0 8px 30px rgba(96,165,250,0.14), 0 0 18px rgba(96,165,250,0.08);}
+    .neon-pulse{animation:pulse 2.4s infinite}
+    @keyframes pulse{0%{box-shadow:0 8px 30px rgba(96,165,250,0.12)}50%{box-shadow:0 18px 60px rgba(96,165,250,0.18)}100%{box-shadow:0 8px 30px rgba(96,165,250,0.12)}}
+
+    .glow{background:linear-gradient(90deg,var(--accent3),var(--accent4));color:#021;box-shadow:0 10px 36px rgba(244,114,182,0.12)}
 
     label.small{font-size:13px;color:var(--muted)}
     textarea{width:100%;min-height:120px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;resize:vertical;margin-top:8px}
     .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
 
     .qr{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-    .qr img{width:100%;max-width:260px;border-radius:8px}
+    .qr img{width:100%;max-width:260px;border-radius:8px;border:6px solid rgba(255,255,255,0.02);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
 
-    .preview{margin-top:12px;padding:12px;border-radius:8px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.02);color:#dff7f0}
+    .preview{margin-top:12px;padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);color:#dff7f0}
 
     .bank-row{display:flex;gap:10px;align-items:center;margin-top:14px}
     .bank-input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent}
 
-    footer{margin-top:16px;color:var(--muted);font-size:13px;text-align:center}
+    .footer{margin-top:16px;color:var(--muted);font-size:13px;text-align:center}
 
-    @media(max-width:820px){.grid{grid-template-columns:1fr;}.logo{width:56px;height:56px}}
+    /* subtle entrance */
+    .card{transform:translateY(8px);opacity:0;animation:enter .6s forwards .06s}
+    @keyframes enter{to{transform:none;opacity:1}}
+
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.logo{width:56px;height:56px}}
   </style>
 </head>
 <body>
+  <div class="lights" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
   <div class="wrap">
     <div class="card">
-      <div class="top">
-        <div class="logo">USDT</div>
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">T$</div>
+          <div>
+            <h1>USDT (BEP20) — Neon Multi‑Color Receive</h1>
+            <p class="lead">A premium-looking payment page with animated lights and colorful accents.</p>
+          </div>
+        </div>
         <div>
-          <h1>USDT (BEP20) — Professional Receive Page</h1>
-          <p class="lead">Share this BEP20 (BSC) address, receive USDT, and provide an easy flow for INR settlement.</p>
+          <button onclick="window.open('https://t.me/P2PTRADER1X','_blank')" class="btn glow">Join Telegram</button>
         </div>
       </div>
 
@@ -71,17 +104,17 @@
           <div class="address-box" id="addressBox">0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75</div>
 
           <div class="controls">
-            <button id="copyBtn" class="btn btn-primary">Copy Address</button>
-            <button id="explorerBtn" class="btn btn-outline">View on BscScan</button>
-            <button id="saveAddressBtn" class="btn btn-outline">Download Address</button>
+            <button id="copyBtn" class="btn neon neon-pulse">Copy Address</button>
+            <button id="explorerBtn" class="btn btn-outline" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">View on BscScan</button>
+            <button id="saveAddressBtn" class="btn" style="background:transparent;border:1px dashed rgba(255,255,255,0.04);color:var(--muted)">Download</button>
           </div>
 
-          <div style="margin-top:16px">
+          <div style="margin-top:18px">
             <label class="small" for="message">Optional message for payer</label>
-            <textarea id="message" placeholder="e.g. For Order #123 — Please include your UPI/Ref"></textarea>
+            <textarea id="message" placeholder="e.g. For Order #123 — please include your UPI ref"></textarea>
             <div class="meta">
               <div id="chars">0 characters</div>
-              <div><button id="saveMsgBtn" class="btn btn-outline">Download Message</button></div>
+              <div><button id="saveMsgBtn" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Download</button></div>
             </div>
 
             <div class="preview" id="preview" style="display:none">
@@ -92,8 +125,8 @@
             <div style="margin-top:18px">
               <label class="small">Bank details (for INR settlement)</label>
               <div class="bank-row">
-                <input id="bankInput" class="bank-input" placeholder="Enter bank name / UPI / note (optional)" />
-                <button id="bankBtn" class="btn btn-primary" style="white-space:nowrap">Enter Bank Details</button>
+                <input id="bankInput" class="bank-input" placeholder="Enter bank / UPI / note (optional)" />
+                <button id="bankBtn" class="btn neon">Enter Bank Details</button>
               </div>
               <div style="margin-top:8px;color:var(--muted);font-size:13px">Clicking "Enter Bank Details" will open Telegram to continue settlement.</div>
             </div>
@@ -111,19 +144,19 @@
             <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
               <div style="font-size:13px;color:var(--muted)">Quick actions</div>
               <div style="display:flex;gap:8px">
-                <button id="copySmall" class="btn btn-primary">Copy</button>
-                <button id="downloadQR" class="btn btn-outline">Download QR</button>
+                <button id="copySmall" class="btn neon">Copy</button>
+                <button id="downloadQR" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)">Download QR</button>
               </div>
             </div>
           </div>
 
           <div style="width:100%;margin-top:12px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.02);color:var(--muted);font-size:13px;text-align:center">
-            Need help? Join our Telegram after clicking "Enter Bank Details".
+            Want darker theme, custom logo, or language switch? Tell me — I’ll update it.
           </div>
         </div>
       </div>
 
-      <footer>Save this file as <code>index.html</code> and deploy to Vercel / Netlify / GitHub Pages. Need logo, dark-mode or custom colors? Reply with preferences.</footer>
+      <div class="footer">Save as <code>index.html</code> and deploy. Need compressed assets or a ready ZIP with logo + preview screenshot? Ask and I’ll prepare it.</div>
     </div>
   </div>
 
@@ -147,9 +180,8 @@
     addressBox.textContent = address;
 
     function updateQR(){
-      // using google charts for QR generation
       const payload = 'ethereum:' + address;
-      const qrUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
+      const qrUrl = 'https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
       qrImg.src = qrUrl;
     }
     updateQR();
@@ -206,19 +238,15 @@
     });
 
     bankBtn.addEventListener('click', ()=>{
-      // append bank note to telegram link as query (Telegram ignores but shows in some clients) - main action: redirect
       const note = encodeURIComponent(bankInput.value || '');
       const tg = 'https://t.me/P2PTRADER1X';
-      // open telegram link
       window.open(tg, '_blank');
     });
 
     downloadQR.addEventListener('click', ()=>{
-      // download the QR image shown
       const url = qrImg.src;
       const a = document.createElement('a'); a.href = url; a.download = 'usdt-bep20-qr.png'; document.body.appendChild(a); a.click(); a.remove();
     });
-
   </script>
 </body>
 </html>
