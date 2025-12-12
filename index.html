@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>USDT (BEP20) Receive Page</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;margin:0;background:linear-gradient(180deg,#071029 0%, #071827 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;width:100%;max-width:720px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .row{display:flex;gap:12px;align-items:center}
+    .address-box{background:#081025;padding:14px;border-radius:8px;flex:1;word-break:break-all;border:1px solid rgba(255,255,255,0.03)}
+    .small{font-size:12px;color:var(--muted)}
+    button{background:var(--accent);border:none;padding:10px 12px;border-radius:8px;color:#042026;font-weight:600;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .qr{width:160px;height:160px;border-radius:8px;background:#071226;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
+    textarea{width:100%;min-height:110px;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:#041022;color:inherit;resize:vertical}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:var(--muted);font-size:13px}
+    .preview{margin-top:12px;padding:12px;border-radius:8px;background:#061225;border:1px solid rgba(255,255,255,0.02)}
+    .foot{margin-top:14px;font-size:12px;color:var(--muted)}
+    a.link{color:var(--accent);text-decoration:none}
+    @media(max-width:560px){.row{flex-direction:column}.qr{width:140px;height:140px}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>USDT (BEP20) Receive</h1>
+    <p class="lead">Niche message likhne ka option — address ko copy karo ya QR scan karo.</p>
+
+    <div class="row" style="align-items:flex-start">
+      <div style="flex:1">
+        <div class="small">Address (USDT BEP20)</div>
+        <div class="address-box" id="addressBox">0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75</div>
+
+        <div class="controls">
+          <button id="copyBtn">Copy Address</button>
+          <button id="explorerBtn" class="ghost">Open on BscScan</button>
+          <button id="saveAddressBtn" class="ghost">Download address.txt</button>
+        </div>
+
+        <div style="margin-top:14px">
+          <label class="small" for="message">Message (niche jo show hoga):</label>
+          <textarea id="message" placeholder="Yahan apna message likho — payer ko yeh message dikhega..."></textarea>
+          <div class="meta">
+            <div id="chars">0 characters</div>
+            <div><button id="saveMsgBtn" class="ghost">Download message</button></div>
+          </div>
+        </div>
+
+        <div class="preview" id="preview" style="display:none">
+          <strong>Preview:</strong>
+          <div id="previewText" style="margin-top:8px;white-space:pre-wrap"></div>
+        </div>
+
+      </div>
+
+      <div style="width:180px;text-align:center">
+        <div class="small">Scan QR to copy address</div>
+        <div class="qr" id="qrContainer">
+          <img id="qrImg" alt="QR code" style="max-width:100%;border-radius:6px" />
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted)">Quick actions</div>
+      </div>
+    </div>
+
+    <div class="foot">Made with ❤️ — Simple static page. To deploy: upload this single file as <code>index.html</code> to Vercel / Netlify / GitHub Pages.</div>
+  </div>
+
+  <script>
+    const address = '0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75';
+    const addressBox = document.getElementById('addressBox');
+    const copyBtn = document.getElementById('copyBtn');
+    const explorerBtn = document.getElementById('explorerBtn');
+    const qrImg = document.getElementById('qrImg');
+    const messageEl = document.getElementById('message');
+    const chars = document.getElementById('chars');
+    const preview = document.getElementById('preview');
+    const previewText = document.getElementById('previewText');
+    const saveMsgBtn = document.getElementById('saveMsgBtn');
+    const saveAddressBtn = document.getElementById('saveAddressBtn');
+
+    // set initial values
+    addressBox.textContent = address;
+
+    function updateQR(){
+      const qrUrl = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(address) + '&choe=UTF-8';
+      qrImg.src = qrUrl;
+    }
+    updateQR();
+
+    copyBtn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(address);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=>copyBtn.textContent = 'Copy Address',1200);
+      }catch(e){
+        alert('Copy failed — manually select and copy.');
+      }
+    });
+
+    explorerBtn.addEventListener('click', ()=>{
+      const url = 'https://bscscan.com/address/' + address;
+      window.open(url,'_blank');
+    });
+
+    messageEl.addEventListener('input', ()=>{
+      const v = messageEl.value;
+      chars.textContent = v.length + ' characters';
+      if(v.trim().length){
+        preview.style.display = 'block';
+        previewText.textContent = v;
+      }else{
+        preview.style.display = 'none';
+      }
+    });
+
+    function downloadFile(filename, text){
+      const a = document.createElement('a');
+      const blob = new Blob([text], {type: 'text/plain'});
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+    }
+
+    saveMsgBtn.addEventListener('click', ()=>{
+      const v = messageEl.value.trim();
+      if(!v){ alert('Message empty'); return }
+      downloadFile('message.txt', v);
+    });
+
+    saveAddressBtn.addEventListener('click', ()=>{
+      downloadFile('address.txt', address);
+    });
+
+    // allow pressing Ctrl+Enter in textarea to show preview (optional)
+    messageEl.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+        e.preventDefault();
+        if(messageEl.value.trim()) preview.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
