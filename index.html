@@ -3,98 +3,128 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>USDT (BEP20) — Receive Page</title>
+  <title>USDT (BEP20) — Professional Receive Page</title>
   <style>
     :root{
-      --bg1: #ff9a9e;
-      --bg2: #fad0c4;
-      --card: rgba(255,255,255,0.06);
-      --glass: rgba(255,255,255,0.08);
-      --accent: #06b6d4;
-      --accent2: #7c3aed;
-      --muted: rgba(255,255,255,0.8);
-      --glass-border: rgba(255,255,255,0.12);
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#00c2a8; /* teal */
+      --accent-2:#ffd166; /* warm gold */
+      --muted:#98a0aa;
+      --glass: rgba(255,255,255,0.03);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#072227;background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      margin:0;min-height:100vh;background:linear-gradient(180deg,#081426 0%, #071229 100%);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial;color:#eaf6f2;display:flex;align-items:center;justify-content:center;padding:28px
     }
-    .card{
-      width:100%;max-width:860px;background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));backdrop-filter: blur(8px);border-radius:16px;padding:22px;border:1px solid var(--glass-border);box-shadow:0 12px 40px rgba(12,20,40,0.2);
-    }
-    header{display:flex;align-items:center;gap:14px}
-    h1{margin:0;font-size:20px;color:#031617}
-    p.lead{margin:4px 0 14px;color:#042c2c;opacity:0.95}
+    .wrap{width:100%;max-width:980px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:28px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 18px 50px rgba(3,12,29,0.6)}
 
-    .row{display:flex;gap:18px;align-items:flex-start}
-    .left{flex:1}
-    .address-box{background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));padding:14px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-weight:700;color:#022;word-break:break-all}
-    .small{font-size:13px;color:#063535}
+    .top{display:flex;align-items:center;gap:18px}
+    .logo{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#072;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+    h1{margin:0;font-size:26px;letter-spacing:0.2px}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:22px;margin-top:20px}
+
+    .section{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:18px;border-radius:12px;border:1px solid var(--glass)}
+
+    .address-box{padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));font-weight:700;color:#dff7f0;word-break:break-all;border:1px solid rgba(255,255,255,0.02)}
+
     .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    button{cursor:pointer;padding:10px 12px;border-radius:10px;border:none;font-weight:600}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:white}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:#042c2c}
+    .btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),#38bdf8);color:#012;box-shadow:0 8px 20px rgba(0,194,168,0.14)}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-    .qr{width:170px;height:170px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));}
-    textarea{width:100%;min-height:120px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:rgba(255,255,255,0.02);resize:vertical;color:#021}
-    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:#063535;font-size:13px}
-    .preview{margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border:1px dashed rgba(0,0,0,0.04)}
+    label.small{font-size:13px;color:var(--muted)}
+    textarea{width:100%;min-height:120px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;resize:vertical;margin-top:8px}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;color:var(--muted);font-size:13px}
 
-    .foot{margin-top:14px;font-size:13px;color:#063535}
+    .qr{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+    .qr img{width:100%;max-width:260px;border-radius:8px}
 
-    @media(max-width:720px){.row{flex-direction:column}.qr{width:140px;height:140px}}
+    .preview{margin-top:12px;padding:12px;border-radius:8px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.02);color:#dff7f0}
+
+    .bank-row{display:flex;gap:10px;align-items:center;margin-top:14px}
+    .bank-input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent}
+
+    footer{margin-top:16px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media(max-width:820px){.grid{grid-template-columns:1fr;}.logo{width:56px;height:56px}}
   </style>
 </head>
 <body>
-  <div class="card">
-    <header>
-      <div style="width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;font-weight:800;color:#053;font-size:22px;">💰</div>
-      <div>
-        <h1 style="font-size:30px;margin:0;color:#022;">USDT (BEP20) Payment Page</h1>
-        <p class="lead">Share your BEP20 (BSC) address, collect payments, and guide users easily.</p>
-      </div>
-    </header>
-
-    <h2 style="margin-top:18px;margin-bottom:16px;font-size:26px;font-weight:700;color:#021;background:linear-gradient(90deg,#a1c4fd,#c2e9fb);padding:10px 14px;border-radius:12px;">Enter Bank Details for Instant INR Settlement</h2>
-    <button id="bankBtn" style="padding:12px 18px;border:none;border-radius:12px;background:linear-gradient(90deg,#ff758c,#ff7eb3);color:white;font-weight:700;font-size:16px;cursor:pointer;margin-bottom:20px;">Enter Bank Details</button>
-
-    <div class="row" style="margin-top:14px">
-      <div class="left">
-        <div class="small">Address (USDT BEP20)</div>
-        <div class="address-box" id="addressBox">0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75</div>
-
-        <div class="controls">
-          <button id="copyBtn" class="btn-primary">Copy Address</button>
-          <button id="explorerBtn" class="btn-ghost">Open on BscScan</button>
-          <button id="saveAddressBtn" class="btn-ghost">Download address.txt</button>
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <div class="logo">USDT</div>
+        <div>
+          <h1>USDT (BEP20) — Professional Receive Page</h1>
+          <p class="lead">Share this BEP20 (BSC) address, receive USDT, and provide an easy flow for INR settlement.</p>
         </div>
+      </div>
 
-        <div style="margin-top:16px">
-          <label class="small" for="message">Message (will be shown below):</label>
-          <textarea id="message" placeholder="Write a short message for the payer, e.g. 'For Order #123 — thanks!'..."></textarea>
-          <div class="meta">
-            <div id="chars">0 characters</div>
-            <div><button id="saveMsgBtn" class="btn-ghost">Download message</button></div>
+      <div class="grid">
+        <div class="section">
+          <div class="small">Receiving Address</div>
+          <div class="address-box" id="addressBox">0x7893ae2BD8913F4FFF8591A4d60cE80a9300FC75</div>
+
+          <div class="controls">
+            <button id="copyBtn" class="btn btn-primary">Copy Address</button>
+            <button id="explorerBtn" class="btn btn-outline">View on BscScan</button>
+            <button id="saveAddressBtn" class="btn btn-outline">Download Address</button>
+          </div>
+
+          <div style="margin-top:16px">
+            <label class="small" for="message">Optional message for payer</label>
+            <textarea id="message" placeholder="e.g. For Order #123 — Please include your UPI/Ref"></textarea>
+            <div class="meta">
+              <div id="chars">0 characters</div>
+              <div><button id="saveMsgBtn" class="btn btn-outline">Download Message</button></div>
+            </div>
+
+            <div class="preview" id="preview" style="display:none">
+              <strong>Preview</strong>
+              <div id="previewText" style="margin-top:8px;white-space:pre-wrap"></div>
+            </div>
+
+            <div style="margin-top:18px">
+              <label class="small">Bank details (for INR settlement)</label>
+              <div class="bank-row">
+                <input id="bankInput" class="bank-input" placeholder="Enter bank name / UPI / note (optional)" />
+                <button id="bankBtn" class="btn btn-primary" style="white-space:nowrap">Enter Bank Details</button>
+              </div>
+              <div style="margin-top:8px;color:var(--muted);font-size:13px">Clicking "Enter Bank Details" will open Telegram to continue settlement.</div>
+            </div>
+
           </div>
         </div>
 
-        <div class="preview" id="preview" style="display:none">
-          <strong>Preview:</strong>
-          <div id="previewText" style="margin-top:8px;white-space:pre-wrap"></div>
-        </div>
+        <div class="section" style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:flex-start">
+          <div style="width:100%;text-align:center">
+            <div style="font-size:14px;color:var(--muted);margin-bottom:8px">Scan or tap to copy</div>
+            <div class="qr"><img id="qrImg" alt="QR" /></div>
+          </div>
 
+          <div style="width:100%;margin-top:6px">
+            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+              <div style="font-size:13px;color:var(--muted)">Quick actions</div>
+              <div style="display:flex;gap:8px">
+                <button id="copySmall" class="btn btn-primary">Copy</button>
+                <button id="downloadQR" class="btn btn-outline">Download QR</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="width:100%;margin-top:12px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.02);color:var(--muted);font-size:13px;text-align:center">
+            Need help? Join our Telegram after clicking "Enter Bank Details".
+          </div>
+        </div>
       </div>
 
-      <div style="width:200px;text-align:center">
-        <div class="small">Scan QR to copy address</div>
-        <div class="qr" id="qrContainer">
-          <img id="qrImg" alt="QR code" style="max-width:90%;border-radius:8px" />
-        </div>
-        <div style="margin-top:12px;font-size:13px;color:#063535">Quick actions</div>
-      </div>
+      <footer>Save this file as <code>index.html</code> and deploy to Vercel / Netlify / GitHub Pages. Need logo, dark-mode or custom colors? Reply with preferences.</footer>
     </div>
-
-    <div class="foot">Tip: Save this file as <code>index.html</code> and upload to Vercel / Netlify / GitHub Pages to deploy. Want a different color theme or dark mode? Tell me which colors you like.</div>
   </div>
 
   <script>
@@ -109,40 +139,38 @@
     const previewText = document.getElementById('previewText');
     const saveMsgBtn = document.getElementById('saveMsgBtn');
     const saveAddressBtn = document.getElementById('saveAddressBtn');
+    const bankBtn = document.getElementById('bankBtn');
+    const bankInput = document.getElementById('bankInput');
+    const copySmall = document.getElementById('copySmall');
+    const downloadQR = document.getElementById('downloadQR');
 
     addressBox.textContent = address;
 
     function updateQR(){
-      const payload = 'ethereum:' + address; // many wallets understand this
-      const qrUrl = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
+      // using google charts for QR generation
+      const payload = 'ethereum:' + address;
+      const qrUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
       qrImg.src = qrUrl;
     }
     updateQR();
 
+    async function copyText(t){
+      try{ await navigator.clipboard.writeText(t); return true }catch(e){return false}
+    }
+
     copyBtn.addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText(address);
-        copyBtn.textContent = 'Copied!';
-        setTimeout(()=>copyBtn.textContent = 'Copy Address',1200);
-      }catch(e){
-        alert('Copy failed — please select and copy manually.');
-      }
+      const ok = await copyText(address);
+      copyBtn.textContent = ok? 'Copied' : 'Copy failed';
+      setTimeout(()=>copyBtn.textContent = 'Copy Address',1200);
+    });
+    copySmall.addEventListener('click', async ()=>{
+      const ok = await copyText(address);
+      copySmall.textContent = ok? 'Copied' : 'Copy';
+      setTimeout(()=>copySmall.textContent = 'Copy',900);
     });
 
     explorerBtn.addEventListener('click', ()=>{
-      const url = 'https://bscscan.com/address/' + address;
-      window.open(url,'_blank');
-    });
-
-    messageEl.addEventListener('input', ()=>{
-      const v = messageEl.value;
-      chars.textContent = v.length + ' characters';
-      if(v.trim().length){
-        preview.style.display = 'block';
-        previewText.textContent = v;
-      }else{
-        preview.style.display = 'none';
-      }
+      window.open('https://bscscan.com/address/' + address, '_blank');
     });
 
     function downloadFile(filename, text){
@@ -156,7 +184,7 @@
       setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
     }
 
-    saveMsgBtn.addEventListener('click', ()=>{
+    saveMsgBtn?.addEventListener('click', ()=>{
       const v = messageEl.value.trim();
       if(!v){ alert('Message empty'); return }
       downloadFile('message.txt', v);
@@ -166,15 +194,31 @@
       downloadFile('address.txt', address);
     });
 
-    messageEl.addEventListener('keydown', (e)=>{
-      if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
-        e.preventDefault();
-        if(messageEl.value.trim()) preview.style.display = 'block';
+    messageEl.addEventListener('input', ()=>{
+      const v = messageEl.value;
+      chars.textContent = v.length + ' characters';
+      if(v.trim().length){
+        preview.style.display = 'block';
+        previewText.textContent = v;
+      }else{
+        preview.style.display = 'none';
       }
     });
-      document.getElementById('bankBtn').addEventListener('click', ()=>{
-      window.location.href = 'https://t.me/P2PTRADER1X';
+
+    bankBtn.addEventListener('click', ()=>{
+      // append bank note to telegram link as query (Telegram ignores but shows in some clients) - main action: redirect
+      const note = encodeURIComponent(bankInput.value || '');
+      const tg = 'https://t.me/P2PTRADER1X';
+      // open telegram link
+      window.open(tg, '_blank');
     });
+
+    downloadQR.addEventListener('click', ()=>{
+      // download the QR image shown
+      const url = qrImg.src;
+      const a = document.createElement('a'); a.href = url; a.download = 'usdt-bep20-qr.png'; document.body.appendChild(a); a.click(); a.remove();
+    });
+
   </script>
 </body>
 </html>
