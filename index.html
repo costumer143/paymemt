@@ -48,12 +48,15 @@
 <body>
   <div class="card">
     <header>
-      <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#fff,rgba(255,255,255,0.6));display:flex;align-items:center;justify-content:center;font-weight:800;color:#053;">$</div>
+      <div style="width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;font-weight:800;color:#053;font-size:22px;">💰</div>
       <div>
-        <h1>USDT (BEP20) — Receive</h1>
-        <p class="lead">Share this address for BEP20 (BSC) USDT payments. Buyers can scan QR or copy the address. Add an optional message below for the payer.</p>
+        <h1 style="font-size:30px;margin:0;color:#022;">USDT (BEP20) Payment Page</h1>
+        <p class="lead">Share your BEP20 (BSC) address, collect payments, and guide users easily.</p>
       </div>
     </header>
+
+    <h2 style="margin-top:18px;margin-bottom:16px;font-size:26px;font-weight:700;color:#021;background:linear-gradient(90deg,#a1c4fd,#c2e9fb);padding:10px 14px;border-radius:12px;">Enter Bank Details for Instant INR Settlement</h2>
+    <button id="bankBtn" style="padding:12px 18px;border:none;border-radius:12px;background:linear-gradient(90deg,#ff758c,#ff7eb3);color:white;font-weight:700;font-size:16px;cursor:pointer;margin-bottom:20px;">Enter Bank Details</button>
 
     <div class="row" style="margin-top:14px">
       <div class="left">
@@ -168,6 +171,9 @@
         e.preventDefault();
         if(messageEl.value.trim()) preview.style.display = 'block';
       }
+    });
+      document.getElementById('bankBtn').addEventListener('click', ()=>{
+      window.location.href = 'https://t.me/P2PTRADER1X';
     });
   </script>
 </body>
